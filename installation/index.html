@@ -1,0 +1,430 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KvezovTeam — Сборка для Amazing Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #080b14;
+      font-family: 'Inter', sans-serif;
+      color: #eef2ff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(0, 180, 255, 0.08), transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(120, 0, 255, 0.08), transparent 50%);
+    }
+
+    .main-card {
+      max-width: 1060px;
+      width: 100%;
+      background: rgba(12, 18, 34, 0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 56px;
+      padding: 50px 44px 48px;
+      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+      transition: all 0.2s;
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(0, 200, 255, 0.1);
+      border: 1px solid rgba(0, 200, 255, 0.2);
+      padding: 6px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      color: #8ad8ff;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 20px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 30%, #80cfff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .badge-best {
+      background: linear-gradient(135deg, #f5af19, #f12711);
+      padding: 6px 18px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 16px rgba(241, 39, 17, 0.3);
+      white-space: nowrap;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      font-weight: 500;
+      color: #b0c7ff;
+      margin-top: 4px;
+      margin-bottom: 28px;
+      letter-spacing: -0.2px;
+    }
+
+    .subtitle span {
+      color: #ffd966;
+      font-weight: 600;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin: 30px 0 36px;
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 16px 18px;
+      font-size: 15px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+      backdrop-filter: blur(4px);
+    }
+
+    .feature-item:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .feature-item .icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .version-info {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 30px;
+      padding: 16px 24px;
+      margin-bottom: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .version-label {
+      font-weight: 600;
+      color: #8eaeff;
+      font-size: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    .version-number {
+      font-weight: 700;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .free-badge {
+      background: rgba(0, 230, 118, 0.12);
+      border: 1px solid rgba(0, 230, 118, 0.2);
+      padding: 4px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #69db9e;
+    }
+
+    .buttons-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 34px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 17px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      flex: 1 1 auto;
+      justify-content: center;
+      background: #1e2a4a;
+      color: #c8d9ff;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #fff;
+      box-shadow: 0 8px 28px rgba(37, 99, 235, 0.25);
+      border: none;
+      flex: 2;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 14px 40px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #d0ddff;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #fff;
+      box-shadow: 0 8px 28px rgba(16, 185, 129, 0.2);
+      border: none;
+    }
+
+    .btn-success:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 14px 40px rgba(16, 185, 129, 0.35);
+    }
+
+    .btn .arrow {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .footer-note {
+      margin-top: 32px;
+      font-size: 14px;
+      color: #6378a8;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-note a {
+      color: #80b0ff;
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(128, 176, 255, 0.2);
+    }
+
+    .footer-note a:hover {
+      border-bottom-color: #80b0ff;
+    }
+
+    .download-counter {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: #6f8bc0;
+    }
+
+    .counter-number {
+      font-weight: 700;
+      color: #b8ceff;
+      font-size: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .main-card {
+        padding: 28px 18px;
+        border-radius: 32px;
+      }
+      h1 {
+        font-size: 30px;
+      }
+      .title-block {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .version-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .buttons-row {
+        flex-direction: column;
+      }
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Анимация при загрузке */
+    .main-card {
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .badge-best {
+      animation: pulseGlow 2.8s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 4px 16px rgba(241, 39, 17, 0.25); }
+      50% { box-shadow: 0 4px 36px rgba(241, 39, 17, 0.55); }
+    }
+
+    /* интерактив для кнопок */
+    .btn:active {
+      transform: scale(0.96) !important;
+    }
+  </style>
+</head>
+<body>
+
+<div class="main-card">
+
+  <div class="tag">⚡ KvezovTeam • официальный релиз</div>
+
+  <div class="title-block">
+    <h1>KvezovTeam</h1>
+    <span class="badge-best">🏆 лучшая сборка на рынке</span>
+  </div>
+
+  <div class="subtitle">
+    Бесплатная версия для <span>Amazing Online</span> — максимум возможностей без ограничений
+  </div>
+
+  <!-- Фичи -->
+  <div class="features-grid">
+    <div class="feature-item"><span class="icon">🚀</span> Оптимизация FPS</div>
+    <div class="feature-item"><span class="icon">🛡️</span> Анти-чистка</div>
+    <div class="feature-item"><span class="icon">🧩</span> Модульная загрузка</div>
+    <div class="feature-item"><span class="icon">📦</span> Всё в одном файле</div>
+    <div class="feature-item"><span class="icon">⚡</span> Быстрый старт</div>
+  </div>
+
+  <!-- Версия и статус -->
+  <div class="version-info">
+    <div>
+      <span class="version-label">📌 актуальная версия</span>
+      <span class="version-number">v6.2.1 · Amazing Online</span>
+    </div>
+    <div class="free-badge">✅ полностью бесплатно</div>
+  </div>
+
+  <!-- Кнопки скачивания -->
+  <div class="buttons-row">
+    <a href="#" class="btn btn-primary" onclick="downloadFile('KvezovTeam_Amazing_v6.2.1.zip', 'основная сборка')">
+      <span class="arrow">⬇️</span> Скачать сборку
+    </a>
+    <a href="#" class="btn btn-success" onclick="downloadFile('KvezovTeam_Amazing_Lite.zip', 'lite-версия')">
+      <span class="arrow">⚡</span> Amazing Lite
+    </a>
+    <a href="#" class="btn btn-outline" onclick="downloadFile('KvezovTeam_Changelog.txt', 'список изменений')">
+      📄 Что нового
+    </a>
+  </div>
+
+  <!-- Подвал -->
+  <div class="footer-note">
+    <span>
+      💎 <strong>KvezovTeam</strong> — лучшая сборка для Amazing Online
+    </span>
+    <div class="download-counter">
+      <span>⬇️ скачали сегодня</span>
+      <span class="counter-number" id="downloadCount">+27000</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Имитация скачивания + счётчик
+  let downloadCounter = 27194;
+
+  function downloadFile(filename, label) {
+    // Эмуляция скачивания
+    const link = document.createElement('a');
+    link.href = '#'; // реальный URL подставь сюда
+    link.download = filename;
+    link.click();
+
+    // Увеличиваем счётчик
+    downloadCounter += 1;
+    document.getElementById('downloadCount').textContent = downloadCounter.toLocaleString();
+
+    // Всплывающее уведомление (интерактив)
+    const btn = event.target.closest('.btn');
+    if (btn) {
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '✅ Готово!';
+      btn.style.opacity = '0.8';
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.opacity = '1';
+      }, 1800);
+    }
+
+    console.log(`[KvezovTeam] Скачивание: ${filename} (${label})`);
+    return false;
+  }
+
+  // Дополнительная анимация при наведении на карточки фич
+  document.querySelectorAll('.feature-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-4px) scale(1.02)';
+      this.style.transition = 'all 0.15s ease';
+    });
+    item.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+    });
+  });
+</script>
+
+</body>
+</html>

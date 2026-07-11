@@ -1,0 +1,80 @@
+Uri: http://www.7ims.ru/installation/
+File Name: C:\Downloaded Web Sites\www.7ims.ru\installation\index.htm
+Content Type: text/html
+
+Uri: http://www.7ims.ru/os/
+File Name: C:\Downloaded Web Sites\www.7ims.ru\os\index.htm
+Content Type: text/html
+
+Uri: http://www.7ims.ru/os/photo1.jpg
+File Name: C:\Downloaded Web Sites\www.7ims.ru\os\photo1.jpg
+Content Type: image/jpeg
+
+Uri: http://www.7ims.ru/os/photo2.jpg
+File Name: C:\Downloaded Web Sites\www.7ims.ru\os\photo2.jpg
+Content Type: image/jpeg
+
+Uri: http://www.7ims.ru/os/photo3.jpg
+File Name: C:\Downloaded Web Sites\www.7ims.ru\os\photo3.jpg
+Content Type: image/jpeg
+
+Uri: http://www.7ims.ru/os/photo4.jpg
+File Name: C:\Downloaded Web Sites\www.7ims.ru\os\photo4.jpg
+Content Type: image/jpeg
+
+Uri: http://www.7ims.ru/os/photo5.jpg
+File Name: C:\Downloaded Web Sites\www.7ims.ru\os\photo5.jpg
+Content Type: image/jpeg
+
+Uri: http://www.7ims.ru/os/photo6.jpg
+File Name: C:\Downloaded Web Sites\www.7ims.ru\os\photo6.jpg
+Content Type: image/jpeg
+
+Uri: http://www.7ims.ru/tweaker/
+File Name: C:\Downloaded Web Sites\www.7ims.ru\tweaker\index.htm
+Content Type: text/html
+
+Uri: http://www.7ims.ru/tweaker/твикер.jpg
+File Name: C:\Downloaded Web Sites\www.7ims.ru\tweaker\твикер.jpg
+Content Type: image/jpeg
+
+Uri: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css
+File Name: C:\Downloaded Web Sites\www.7ims.ru\ajax\libs\font-awesome\6.4.0\css\all.min.css
+Content Type: text/css
+
+Uri: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.ttf
+File Name: C:\Downloaded Web Sites\www.7ims.ru\ajax\libs\font-awesome\6.4.0\webfonts\fa-brands-400.ttf
+Content Type: application/octet-stream
+
+Uri: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2
+File Name: C:\Downloaded Web Sites\www.7ims.ru\ajax\libs\font-awesome\6.4.0\webfonts\fa-brands-400.woff2
+Content Type: application/octet-stream
+
+Uri: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-regular-400.ttf
+File Name: C:\Downloaded Web Sites\www.7ims.ru\ajax\libs\font-awesome\6.4.0\webfonts\fa-regular-400.ttf
+Content Type: application/octet-stream
+
+Uri: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-regular-400.woff2
+File Name: C:\Downloaded Web Sites\www.7ims.ru\ajax\libs\font-awesome\6.4.0\webfonts\fa-regular-400.woff2
+Content Type: application/octet-stream
+
+Uri: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.ttf
+File Name: C:\Downloaded Web Sites\www.7ims.ru\ajax\libs\font-awesome\6.4.0\webfonts\fa-solid-900.ttf
+Content Type: application/octet-stream
+
+Uri: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2
+File Name: C:\Downloaded Web Sites\www.7ims.ru\ajax\libs\font-awesome\6.4.0\webfonts\fa-solid-900.woff2
+Content Type: application/octet-stream
+
+Uri: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-v4compatibility.ttf
+File Name: C:\Downloaded Web Sites\www.7ims.ru\ajax\libs\font-awesome\6.4.0\webfonts\fa-v4compatibility.ttf
+Content Type: application/octet-stream
+
+Uri: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-v4compatibility.woff2
+File Name: C:\Downloaded Web Sites\www.7ims.ru\ajax\libs\font-awesome\6.4.0\webfonts\fa-v4compatibility.woff2
+Content Type: application/octet-stream
+
+Uri: https://www.7ims.ru/
+File Name: C:\Downloaded Web Sites\www.7ims.ru\index.htm
+Content Type: text/html
+

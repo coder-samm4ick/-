@@ -1,0 +1,504 @@
+﻿<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300ff7f;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2300d1ff;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='5' y='5' width='90' height='90' rx='20' ry='20' fill='%230a0a0a' stroke='url(%23g)' stroke-width='2'/%3E%3Cg fill='url(%23g)'%3E%3Cpath d='M28,25 H72 L48,65 L55,60 L35,85 L40,65 L30,70 Z'/%3E%3Ccircle cx='43' cy='48' r='4.5' fill='white'/%3E%3C/g%3E%3C/svg%3E">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>KvezovTeam Tweaker AI | Official</title>
+    <link rel="stylesheet" href="../ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root[data-theme="light"] {
+            --bg: #ffffff;
+            --surface: #f5f7f9;
+            --text: #1d1d1f;
+            --text-muted: #86868b;
+            --primary: #00d166;
+            --accent: #0071e3;
+            --border: rgba(0,0,0,0.1);
+            --tab-bg: rgba(255,255,255,0.8);
+            --header-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --support-bg: rgba(0,209,102,0.05);
+            --warning-bg: rgba(220,38,38,0.1);
+            --warning-border: #dc2626;
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #000000;
+            --surface: #1c1c1e;
+            --text: #f5f5f7;
+            --text-muted: #a1a1a6;
+            --primary: #00ff7f;
+            --accent: #0a84ff;
+            --border: rgba(255,255,255,0.1);
+            --tab-bg: rgba(28,28,30,0.8);
+            --header-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            --support-bg: rgba(0,255,127,0.05);
+            --warning-bg: rgba(220,38,38,0.15);
+            --warning-border: #ef4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, system-ui, sans-serif; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            padding-bottom: 120px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1100px;
+            z-index: 1000;
+            background: var(--tab-bg);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            box-shadow: var(--header-shadow);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            top: 10px;
+            width: 85%;
+            padding: 5px 0;
+        }
+
+        .header-content {
+            padding: 10px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: -1px; }
+
+        .btn-ui {
+            background: var(--surface);
+            border: 1px solid transparent;
+            color: var(--text);
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-ui:hover {
+            border-color: var(--primary);
+            background: rgba(0, 255, 127, 0.1);
+            color: var(--primary);
+        }
+
+        .btn-ui i {
+            font-size: 1rem;
+        }
+
+        .hero { padding: 160px 20px 60px; text-align: center; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; letter-spacing: -1px; font-weight: 800; }
+        .hero span { color: var(--primary); }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
+        
+        .hero-img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 20px;
+            margin-top: 35px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            transition: transform 0.4s ease;
+        }
+        
+        .hero-img:hover {
+            transform: scale(1.02);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 40px auto 60px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 32px;
+            padding: 40px;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .download-section {
+            text-align: center;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+            max-width: 800px;
+        }
+
+        .warning-box {
+            background: var(--warning-bg);
+            border: 2px solid var(--warning-border);
+            color: var(--text);
+            padding: 15px 25px;
+            border-radius: 16px;
+            margin: 0 auto 30px;
+            max-width: 600px;
+            font-size: 0.95rem;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .warning-box i {
+            font-size: 1.8rem;
+            color: var(--warning-border);
+        }
+
+        .download-instruction {
+            font-weight: 800;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--primary);
+            color: #000;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .download-btn {
+            color: #fff;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.03);
+            filter: brightness(0.95);
+        }
+
+        .support-block {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+        
+        .support-card {
+            background: var(--support-bg);
+            border: 1px solid var(--primary);
+            border-radius: 28px;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .support-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,255,127,0.1);
+        }
+        
+        .support-text {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .support-text i {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+        
+        .support-text h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .support-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .support-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .tab-bar {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 450px;
+            background: var(--tab-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            display: flex;
+            padding: 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            z-index: 2000;
+        }
+
+        .tab-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            font-weight: 700;
+            gap: 6px;
+            padding: 12px 0;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            background: rgba(0, 255, 127, 0.1);
+        }
+        
+        .tab-btn i {
+            font-size: 1.3rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            header { width: 95%; top: 15px; padding: 0; }
+            header.scrolled { width: 92%; top: 10px; }
+            .header-content { padding: 8px 15px; }
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 140px 20px 40px; }
+            .card { padding: 30px; }
+            .tab-bar { bottom: 20px; }
+            .logo { font-size: 1.2rem; }
+            .btn-ui { padding: 6px 14px; font-size: 0.8rem; }
+            .support-card { flex-direction: column; text-align: center; }
+            .support-text { flex-direction: column; text-align: center; }
+            .grid { grid-template-columns: 1fr; }
+            .warning-box { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<header id="main-header">
+    <div class="header-content">
+        <a href="#" class="logo">KvezovTeam</a>
+        <div style="display: flex; gap: 8px;">
+            <button class="btn-ui" onclick="changeLang()" id="langBtn">EN</button>
+            <button class="btn-ui" onclick="changeTheme()"><i class="fas fa-moon"></i></button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="hero reveal">
+        <h1 data-en="Windows Tweaker <span>AI Powered</span>">Windows Tweaker <span>AI Powered</span></h1>
+        <p data-en="The only tweaker with integrated AI that understands your system. Optimization, cleaning, and full control in one program.">Единственный твикер с интегрированным ИИ, который понимает твою систему. Оптимизация, очистка и полный контроль в одной программе.</p>
+        <img src="%D1%82%D0%B2%D0%B8%D0%BA%D0%B5%D1%80.jpg" alt="7ims Tweaker" class="hero-img reveal">
+    </section>
+
+    <div class="grid">
+        <div class="card reveal">
+            <i class="fas fa-robot"></i>
+            <h3 data-en="KvezovTeam AI Pro">7ims AI Pro</h3>
+            <p data-en="Stable neural network for any tasks: from PC setup to code and math. AI analyzes your system and suggests optimal settings.">Стабильная нейросеть для решения любых задач: от настройки ПК до кода и математики. ИИ анализирует вашу систему и предлагает оптимальные настройки.</p>
+        </div>
+        <div class="card reveal">
+            <i class="fas fa-user-secret"></i>
+            <h3 data-en="Zero Telemetry">Zero Telemetry</h3>
+            <p data-en="Cutting Microsoft tracking to the root. Complete disabling of telemetry, spy modules, and data collectors. Your privacy is our priority.">Вырезаем слежку Microsoft под корень. Полное отключение телеметрии, шпионских модулей и сборщиков данных. Ваша конфиденциальность — наш приоритет.</p>
+        </div>
+        <div class="card reveal">
+            <i class="fas fa-tachometer-alt"></i>
+            <h3 data-en="Registry Optimization">Оптимизация реестра</h3>
+            <p data-en="Automatic cleaning and optimization of the Windows registry. Accelerating system and application startup, fixing errors, and improving interface responsiveness.">Автоматическая чистка и оптимизация реестра Windows. Ускорение запуска системы и приложений, исправление ошибок и повышение отзывчивости интерфейса.</p>
+        </div>
+        <div class="card reveal">
+            <i class="fas fa-shield-alt"></i>
+            <h3 data-en="Disable Defender">Отключение Defender</h3>
+            <p data-en="Instant and complete disabling of the built-in Windows Defender antivirus, which consumes resources and slows down the PC. Works on any Windows version.">Мгновенное и полное отключение встроенного антивируса Windows Defender, который потребляет ресурсы и замедляет работу ПК. Работает на любых версиях Windows.</p>
+        </div>
+        <div class="card reveal">
+            <i class="fas fa-trash-alt"></i>
+            <h3 data-en="Remove Built-in Apps">Удаление встроенных приложений</h3>
+            <p data-en="Complete removal of all pre-installed Windows apps: Cortana, OneDrive, Xbox, ad games, and other junk. The system becomes 5-10 GB lighter.">Полное удаление всех предустановленных приложений Windows: Cortana, OneDrive, Xbox, рекламные игры и другой мусор. Система становится легче на 5-10 ГБ.</p>
+        </div>
+        <div class="card reveal">
+            <i class="fas fa-microchip"></i>
+            <h3 data-en="Startup Management">Управление автозагрузкой</h3>
+            <p data-en="Smart startup management with AI recommendations. Disable unnecessary processes, speed up Windows startup, and free up RAM.">Умное управление автозагрузкой с рекомендациями ИИ. Отключаем ненужные процессы, ускоряем запуск Windows и освобождаем оперативную память.</p>
+        </div>
+    </div>
+
+    <div class="download-section reveal">
+        <div class="warning-box">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div data-en="<strong>Attention!</strong> You perform all actions in the program entirely at your own risk. We are not responsible for the performance of your PC.">
+                <strong>Внимание!</strong> Все действия в программе вы выполняете исключительно на свой страх и риск. Мы не несем ответственности за работоспособность вашего ПК.
+            </div>
+        </div>
+        <p class="download-instruction" data-en="Be sure to extract the archive and run the program as administrator before starting!">Перед запуском обязательно распакуйте архив и откройте программу от имени администратора!</p>
+        <a href="https://drive.google.com/file/d/1p-kNC9kMGqg532MeYjoYM5RylJP5CnOL/view?usp=sharing" class="download-btn" target="_blank" data-en="<i class='fas fa-download'></i> Download Tweaker">
+            <i class="fas fa-download"></i> Скачать Tweaker
+        </a>
+    </div>
+
+    <div class="support-block reveal">
+        <div class="support-card">
+            <div class="support-text">
+                <i class="fab fa-telegram"></i>
+                <h3 data-en="Tech Support">Техподдержка</h3>
+            </div>
+            <a href="https://t.me/os7ims" class="support-btn" target="_blank">
+                <i class="fab fa-telegram"></i> @genabu2
+            </a>
+        </div>
+    </div>
+</main>
+
+<nav class="tab-bar">
+    <a href="https://tau-nine-73.vercel.app/" class="tab-btn">
+        <i class="fas fa-home"></i>
+        <span data-en="Home">Главная</span>
+    </a>
+    <a href="https://tau-nine-73.vercel.app/" class="tab-btn">
+        <i class="fas fa-compact-disc"></i>
+        <span data-en="OS">ОС</span>
+    </a>
+    <a href="https://tau-nine-73.vercel.app/" class="tab-btn">
+        <i class="fas fa-store"></i>
+        <span data-en="Store">Магазин</span>
+    </a>
+    <a href="https://tau-nine-73.vercel.app/" class="tab-btn active">
+        <i class="fas fa-robot"></i>
+        <span data-en="AI">AI</span>
+    </a>
+</nav>
+
+<footer>
+    <p data-en="© 2022-2026 KvezovTeam Project. All rights reserved.">© 2022-2026 KvezovTeam Project. Все права защищены.</p>
+</footer>
+
+<script>
+    const header = document.getElementById('main-header');
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 100;
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add("active");
+            }
+        }
+        
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    }
+    window.addEventListener("scroll", reveal);
+    reveal();
+
+    function changeTheme() {
+        const root = document.documentElement;
+        const current = root.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        
+        const themeIcon = document.querySelector('button[onclick="changeTheme()"] i');
+        if (next === 'dark') {
+            themeIcon.className = 'fas fa-moon';
+        } else {
+            themeIcon.className = 'fas fa-sun';
+        }
+    }
+
+    let lang = 'ru';
+    function changeLang() {
+        lang = lang === 'ru' ? 'en' : 'ru';
+        document.getElementById('langBtn').innerText = lang === 'ru' ? 'EN' : 'RU';
+        
+        document.querySelectorAll('[data-en]').forEach(el => {
+            if (!el.getAttribute('data-ru')) {
+                el.setAttribute('data-ru', el.innerHTML);
+            }
+            el.innerHTML = lang === 'ru' ? el.getAttribute('data-ru') : el.getAttribute('data-en');
+        });
+    }
+</script>
+</body>
+</html>

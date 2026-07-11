@@ -1,0 +1,757 @@
+﻿<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300ff7f;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2300d1ff;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='5' y='5' width='90' height='90' rx='20' ry='20' fill='%230a0a0a' stroke='url(%23g)' stroke-width='2'/%3E%3Cg fill='url(%23g)'%3E%3Cpath d='M28,25 H72 L48,65 L55,60 L35,85 L40,65 L30,70 Z'/%3E%3Ccircle cx='43' cy='48' r='4.5' fill='white'/%3E%3C/g%3E%3C/svg%3E">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>CEF сборки Amazing | Официальные сборки</title>
+    <link rel="stylesheet" href="../ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root[data-theme="light"] {
+            --surface: #f5f7f9;
+            --text: #1d1d1f;
+            --text-muted: #86868b;
+            --primary: #00d166;
+            --accent: #0071e3;
+            --border: rgba(0,0,0,0.1);
+            --tab-bg: rgba(255,255,255,0.8);
+            --header-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --card-hover: rgba(0,209,102,0.1);
+            --feature-bg: rgba(0,209,102,0.03);
+            --warning-bg: rgba(220,38,38,0.1);
+            --warning-border: #dc2626;
+            --grad-1: #e6f5ec;
+            --grad-2: #ffffff;
+            --grad-3: #d1f2de;
+        }
+
+        :root[data-theme="dark"] {
+            --surface: #1c1c1e;
+            --text: #f5f5f7;
+            --text-muted: #a1a1a6;
+            --primary: #00ff7f;
+            --accent: #0a84ff;
+            --border: rgba(255,255,255,0.1);
+            --tab-bg: rgba(28,28,30,0.8);
+            --header-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            --card-hover: rgba(0,255,127,0.05);
+            --feature-bg: rgba(0,255,127,0.03);
+            --warning-bg: rgba(220,38,38,0.15);
+            --warning-border: #ef4444;
+            --grad-1: #05140a;
+            --grad-2: #000000;
+            --grad-3: #081a0e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, system-ui, sans-serif; }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            background: linear-gradient(-45deg, var(--grad-1), var(--grad-2), var(--grad-3));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text);
+            padding-bottom: 120px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1100px;
+            z-index: 1000;
+            background: var(--tab-bg);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            box-shadow: var(--header-shadow);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            top: 10px;
+            width: 85%;
+            padding: 5px 0;
+        }
+
+        .header-content {
+            padding: 10px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: -1px; }
+
+        .btn-ui {
+            background: var(--surface);
+            border: 1px solid transparent;
+            color: var(--text);
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-ui:hover {
+            border-color: var(--primary);
+            background: rgba(0, 255, 127, 0.1);
+            color: var(--primary);
+        }
+
+        .hero { padding: 140px 20px 40px; text-align: center; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; letter-spacing: -1px; font-weight: 800; }
+        .hero span { color: var(--primary); }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        .features-section {
+            max-width: 1300px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 50px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 35px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            background: var(--feature-bg);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 255, 127, 0.1);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+
+        .feature-icon i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .feature-stats {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .warning-section {
+            max-width: 1300px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .warning-card {
+            background: var(--warning-bg);
+            border: 2px solid var(--warning-border);
+            border-radius: 28px;
+            padding: 25px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .warning-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(220,38,38,0.2);
+        }
+
+        .warning-text {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .warning-text i {
+            font-size: 1.8rem;
+            color: var(--warning-border);
+        }
+
+        .warning-text h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--warning-border);
+        }
+
+        .warning-text p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .support-btn {
+            background: transparent;
+            border: 2px solid var(--warning-border);
+            color: var(--warning-border);
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .support-btn:hover {
+            background: var(--warning-border);
+            color: #fff;
+        }
+
+        .bento {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            max-width: 1300px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 32px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--primary);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            background: var(--card-hover);
+        }
+        
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            background: rgba(0, 255, 127, 0.05);
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(0,255,127,0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .card h2 { 
+            font-size: 1.6rem; 
+            margin-bottom: 12px; 
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .info-list {
+            list-style: none;
+            margin: 20px 0;
+            flex-grow: 1;
+        }
+
+        .info-list li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-list li i {
+            color: var(--primary);
+            margin-top: 2px;
+            font-size: 0.85rem;
+            min-width: 18px;
+        }
+
+        .btn-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .dl-btn {
+            padding: 14px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .dl-btn.primary {
+            background: var(--primary);
+            color: #000000;
+            border: none;
+        }
+
+        [data-theme="light"] .dl-btn.primary {
+            color: #ffffff;
+        }
+
+        .dl-btn.secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .dl-btn:hover {
+            transform: scale(1.02);
+            filter: brightness(0.95);
+        }
+
+        .install-guide {
+            max-width: 1300px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+        
+        .guide-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 30px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .guide-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .guide-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .guide-text p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .guide-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .guide-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .tab-bar {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 450px;
+            background: var(--tab-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            display: flex;
+            padding: 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            z-index: 2000;
+        }
+
+        .tab-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            font-weight: 700;
+            gap: 6px;
+            padding: 12px 0;
+            border-radius: 20px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            background: rgba(0, 255, 127, 0.1);
+        }
+        
+        .tab-btn i {
+            font-size: 1.3rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            header { width: 95%; top: 15px; }
+            header.scrolled { width: 92%; top: 10px; }
+            .header-content { padding: 8px 15px; }
+            .bento { grid-template-columns: 1fr; gap: 20px; }
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 120px 20px 40px; }
+            .card { padding: 25px; }
+            .features-grid { grid-template-columns: 1fr; gap: 20px; }
+            .section-title { font-size: 1.6rem; margin-bottom: 30px; }
+            .feature-card { padding: 25px; }
+            .warning-card { flex-direction: column; text-align: center; padding: 20px; }
+            .warning-text { justify-content: center; }
+            .guide-card { flex-direction: column; text-align: center; padding: 25px; }
+            .tab-bar { bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header id="main-header">
+    <div class="header-content">
+        <a href="#" class="logo">KvezovTeam</a>
+        <div style="display: flex; gap: 8px;">
+            <button class="btn-ui" onclick="changeLang()" id="langBtn">EN</button>
+            <button class="btn-ui" onclick="changeTheme()"><i class="fas fa-moon"></i></button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="hero reveal">
+        <h1 id="hTitle" data-en="Your comfort — <span>Your Rules</span>">Твой комфорт — <span>Твои правила</span></h1>
+        <p id="hDesc" data-en="Optimized Windows builds for those who care about performance, privacy and clean interface without unnecessary clutter.">Оптимизированные сборки Windows для тех, кому важна производительность, приватность и чистый интерфейс без лишнего хлама.</p>
+    </section>
+
+    <section class="features-section reveal">
+        <h2 class="section-title" data-en="Why <span>KvezovTeam assembly </span>?">Почему <span>KvezovTeam сборки</span>?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 data-en="Complete Privacy">Полная конфиденциальность</h3>
+                <p data-en="Absolute absence of telemetry and Microsoft spy modules. No transmission of data about your actions. We completely disable all tracking channels, leaving only what you need. Your data remains only on your PC — no 'cloud' reports, no usage analytics.">Абсолютное отсутствие телеметрии и шпионских модулей Microsoft. Никакой передачи данных о ваших действиях. Мы полностью отключаем все каналы слежения, оставляя только то, что нужно вам. Ваши данные остаются только на вашем ПК — никаких "облачных" отчетов, никакой аналитики использования.</p>
+                <div class="feature-stats" data-en="<i class='fas fa-check-circle'></i> 100% privacy">
+                    <i class="fas fa-check-circle"></i> 100% приватность
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 data-en="Performance Speed">Скорость работы</h3>
+                <p data-en="The PC becomes 10-15% faster thanks to the removal of background processes, registry optimization, and proper task scheduler configuration. Boot time is reduced by 30-40%, applications open instantly, and the system consumes fewer resources.">ПК становится быстрее на 10-15% благодаря удалению фоновых процессов, оптимизации реестра и правильной настройке планировщика задач. Время загрузки сокращается на 30-40%, приложения открываются мгновенно, а система потребляет меньше ресурсов.</p>
+                <div class="feature-stats" data-en="<i class='fas fa-chart-line'></i> +10-15% performance">
+                    <i class="fas fa-chart-line"></i> +10-15% производительности
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3 data-en="Minimum Resource Consumption">Минимальное потребление ресурсов</h3>
+                <p data-en="Only 45 idle processes instead of the standard 150+. RAM usage is 30-50% lower than in regular Windows. Your PC breathes freely — even on weak configurations, the system runs smoothly and responsively.">Процессов в простое всего 45 вместо стандартных 150+. Оперативная память загружается на 30-50% меньше, чем в обычной Windows. Ваш ПК дышит свободно — даже на слабых конфигурациях система работает плавно и отзывчиво.</p>
+                <div class="feature-stats" data-en="<i class='fas fa-microchip'></i> ~45 background processes">
+                    <i class="fas fa-microchip"></i> ~45 процессов в фоне
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-broom"></i>
+                </div>
+                <h3 data-en="Absolute Cleanliness">Абсолютная чистота</h3>
+                <p data-en="No pre-installed 'bloatware': advertising apps, unnecessary services, Cortana, OneDrive, and the app store are removed. You get a clean OS with the ability to install exactly what you need. No impositions, only your choice.">Никакого предустановленного "мусора": вырезаны рекламные приложения, ненужные службы, Cortana, OneDrive и магазин приложений. Вы получаете только чистую ОС с возможностью установить именно то, что вам нужно. Никаких навязываний, только ваш выбор.</p>
+                <div class="feature-stats" data-en="<i class='fas fa-trash-alt'></i> 0 pre-installed bloatware">
+                    <i class="fas fa-trash-alt"></i> 0 предустановленного мусора
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h3 data-en="Gaming Paradise">Игровой рай</h3>
+                <p data-en="Optimized task scheduler, low system latency (Dpc Latency reduced by 25-30%), game process priority, and support for all modern technologies. FPS is 8-12% more stable in demanding titles.">Оптимизированный планировщик задач, низкая системная задержка (Dpc Latency снижена на 25-30%), приоритет игровых процессов и поддержка всех современных технологий. FPS стабильнее на 8-12% в требовательных проектах.</p>
+                <div class="feature-stats" data-en="<i class='fas fa-tachometer-alt'></i> Minimal input lag">
+                    <i class="fas fa-tachometer-alt"></i> Минимальная задержка ввода
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 data-en="Disk Space Saving">Экономия дискового пространства</h3>
+                <p data-en="Compact OS technology is enabled by default — the system takes up to 30% less disk space. Unnecessary components and duplicate files are removed. More free space for your games, programs, and files.">Технология Compact OS включена по умолчанию — система занимает до 30% меньше места на диске. Удалены ненужные компоненты и дублирующиеся файлы. Больше свободного места для ваших игр, программ и файлов.</p>
+                <div class="feature-stats" data-en="<i class='fas fa-hdd'></i> Saves up to 15 GB of space">
+                    <i class="fas fa-hdd"></i> Экономия до 15 ГБ места
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="warning-section reveal">
+        <div class="warning-card">
+            <div class="warning-text">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <h3 data-en="⚠️ IMPORTANT WARNING ⚠️">⚠️ ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ ⚠️</h3>
+                    <p data-en="We are not responsible for your PC. You perform all actions at your own risk. Make sure you have backups of important data before installation.">Мы не несём ответственность за ваш ПК. Все действия вы выполняете на свой страх и риск. Убедитесь в наличии резервных копий важных данных перед установкой.</p>
+                </div>
+            </div>
+            <a href="https://t.me/os7ims" class="support-btn" target="_blank" data-en="<i class='fab fa-telegram'></i> Support @genabu2">
+                <i class="fab fa-telegram"></i> Техподдержка @genabu2
+            </a>
+        </div>
+    </div>
+
+    <div class="bento">
+        <div class="card reveal">
+            <img src="photo1.jpg" alt="KvezovTeam assembly Game" class="card-img">
+            <span class="tag" data-en="Gaming • RU">Игры • RU</span>
+            <h2>Windows OS Game</h2>
+            <ul class="info-list">
+                <li data-en="<i class='fas fa-check-circle'></i> Version for 25H2 — Windows 11"><i class="fas fa-check-circle"></i> Версия 25H2 — Windows 11</li>
+                <li data-en="<i class='fas fa-check-circle'></i> High performance"><i class="fas fa-check-circle"></i> Высокая производительность</li>
+                <li data-en="<i class='fas fa-check-circle'></i> <strong>Complete privacy</strong> (telemetry disabled)"><i class="fas fa-check-circle"></i> <strong>Полная конфиденциальность</strong> (отключена телеметрия)</li>
+                <li data-en="<i class='fas fa-check-circle'></i> <strong>Bypass system requirements</strong>"><i class="fas fa-check-circle"></i> <strong>Обход системных требований</strong></li>
+                <li data-en="<i class='fas fa-check-circle'></i> <strong>Compact OS enabled</strong>"><i class="fas fa-check-circle"></i> <strong>Включена оптимизация процесса Amazing online</strong></li>
+                <li data-en="<i class='fas fa-check-circle'></i> Sticky keys disabled"><i class="fas fa-check-circle"></i> Отключено залипание клавиш</li>
+                <li data-en="<i class='fas fa-check-circle'></i> <strong>Accelerated installation</strong>"><i class="fas fa-check-circle"></i> <strong>Ускоренная установка</strong></li>
+            </ul>
+            <div class="btn-box">
+                <a href="https://drive.google.com/file/d/1lZW7dnTkBHBVtt6Zv0JwTie86Sd4pLeE/view?usp=drivesdk" class="dl-btn primary" data-en="Download assembly">Скачать сборку</a>
+            </div>
+        </div>
+
+
+
+        <div class="card reveal">
+            <img src="photo6.jpg" alt="Windows 8.1" class="card-img">
+            <span class="tag" data-en="Nostalgia • RU">Ностальгия • RU</span>
+            <h2>Windows 8.1</h2>
+            <ul class="info-list">
+	        <li data-en="<i class='fas fa-check-circle'></i> Unfortunately, the build is not supported on this version."><i class="fas fa-check-circle"></i> К сожалению сборка не поддерживается на данной версии</li>
+                <li data-en="<i class='fas fa-check-circle'></i> Best choice for old laptops"><i class="fas fa-check-circle"></i> Лучший выбор для старых ноутбуков</li>
+                <li data-en="<i class='fas fa-check-circle'></i> Instant interface response"><i class="fas fa-check-circle"></i> Мгновенный отклик интерфейса</li>
+                <li data-en="<i class='fas fa-check-circle'></i> Improved power management"><i class="fas fa-check-circle"></i> Улучшенное управление питанием</li>
+                <li data-en="<i class='fas fa-check-circle'></i> All MS tracking systems disabled"><i class="fas fa-check-circle"></i> Отключены все системы слежения MS</li>
+                <li data-en="<i class='fas fa-check-circle'></i> Optimized for weak configurations"><i class="fas fa-check-circle"></i> Оптимизирована для слабых конфигураций</li>
+            </ul>
+            <div class="btn-box">
+                <a href="#" class="dl-btn primary" data-en="Download ">Скачать ISO</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="install-guide reveal">
+        <div class="guide-card">
+            <div class="guide-text">
+                <h3 data-en="<i class='fas fa-book-open' style='color: var(--primary); margin-right: 8px;'></i> Need help with installation?"><i class="fas fa-book-open" style="color: var(--primary); margin-right: 8px;"></i> Нужна помощь с установкой?</h3>
+                <p data-en="Detailed instructions for installing Windows from a USB flash drive. Suitable for all 7ims OS builds.">Подробная инструкция по установке . Подходит для всех сборок .</p>
+            </div>
+            <a href="https://7ims.ru/installation" class="guide-btn" target="_blank" data-en="Read instructions <i class='fas fa-arrow-right'></i>">
+                Читать инструкцию <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+</main>
+
+<nav class="tab-bar">
+    <a href="https://tau-nine-73.vercel.app/" class="tab-btn">
+        <i class="fas fa-home"></i>
+        <span data-en="Home">Главная</span>
+    </a>
+    <a href="https://tau-nine-73.vercel.app/" class="tab-btn active" onclick="setActive(this, event)">
+        <i class="fas fa-compact-disc"></i>
+        <span data-en="Загрузки">Download</span>
+    </a>
+    <a href="https://tau-nine-73.vercel.app/" class="tab-btn">
+        <i class="fas fa-store"></i>
+        <span data-en="Store">Магазин</span>
+    </a>
+    <a href="https://tau-nine-73.vercel.app/" class="tab-btn">
+        <i class="fas fa-robot"></i>
+        <span data-en="AI">AI</span>
+    </a>
+</nav>
+
+<footer>
+    <p data-en="© 2022-2026 KvezovTeam Project. All rights reserved.">© 2022-2026 KvezovTeam Project. Все права защищены.</p>
+</footer>
+
+<script>
+    const header = document.getElementById('main-header');
+    
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 100;
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add("active");
+            }
+        }
+        
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    }
+    
+    window.addEventListener("scroll", reveal);
+    reveal();
+
+    function changeTheme() {
+        const root = document.documentElement;
+        const current = root.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        
+        const themeIcon = document.querySelector('button[onclick="changeTheme()"] i');
+        if (next === 'dark') {
+            themeIcon.className = 'fas fa-moon';
+        } else {
+            themeIcon.className = 'fas fa-sun';
+        }
+    }
+
+    let lang = 'ru';
+    function changeLang() {
+        lang = lang === 'ru' ? 'en' : 'ru';
+        document.getElementById('langBtn').innerText = lang === 'ru' ? 'EN' : 'RU';
+        
+        document.querySelectorAll('[data-en]').forEach(el => {
+            if (!el.getAttribute('data-ru')) {
+                el.setAttribute('data-ru', el.innerHTML);
+            }
+            el.innerHTML = lang === 'ru' ? el.getAttribute('data-ru') : el.getAttribute('data-en');
+        });
+    }
+
+    function setActive(el, event) {
+        if (el.getAttribute('href') && el.getAttribute('href') !== '#') {
+            return true;
+        }
+        if (event) event.preventDefault();
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const root = document.documentElement;
+        const currentTheme = root.getAttribute('data-theme');
+        const themeIcon = document.querySelector('button[onclick="changeTheme()"] i');
+        if (themeIcon) {
+            themeIcon.className = currentTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+    });
+</script>
+</body>
+</html>
